@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      margin: auto;
+      text-align: center;
+      font-family: arial;
+    }
+
+    .price {
+      color: black;
+      font-size: 22px;
+    }
+
+    .card button {
+      border: none;
+      outline: 0;
+      padding: 12px;
+      color: white;
+      background-color: white;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+    }
+
+    .card button:hover {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+
+  {% for p in products %}
+  <ol>
+    <h2 style="text-align:center">Product Card</h2>
+    <a href="{% url 'product_details' p.id %}">
+      <div class="card">
+        <img src="{{p.image.url}}" alt="Image not found" style="width:200px">
+        <h1>{{p.name}}</h1>
+        <p class="price">₹ {{p.price}}</p>
+        <p>{{p.description}}<br></p>
+        <br>
+        <br>
+      </div>
+    </a>
+  </ol>
+
+
+  {% endfor %}
+</body>
+
+</html>
