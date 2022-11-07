@@ -1,8 +1,10 @@
+# from email.mime import image
 from multiprocessing import context
+# from unicodedata import name
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from myapp.models import Product
-
+from django.db.models import Q
 # Create your views here.-
 
 
@@ -42,10 +44,65 @@ def product_details(request,id):
 
 
 def add_product(request):
-    p = Product(name = "Samsung 32 Inch Monitor",price = 36000.0)
-    
-    p.description = "This is a Samsung 32 Inch Monitor"
+    if request.method == 'POST':
+     name=request.POST.get('name')
+     price=request.POST.get('price')
+     desc=request.POST.get('desc')
+     image=request.FILES['upload']
+     
+     
+     
+     p = Product(name=name,price=price,description=desc,image=image)
+     p.save()
+     
+     
+     return redirect('/myapp/products')
+     
+         
+    return render(request,'myapp/add_product.html')
 
-    p.save()
+
+
+def update_product(request,id):
+    p = Product.objects.get(id=id)
+    context = {'p':p}
+   
+   
+    if request.method == 'POST':
+     p.name = request.POST.get('name')
+     p.price = request.POST.get('price')
+     p.description = request.POST.get('desc')
     
-    return HttpResponse(p)
+     
+     try:
+         p.image = request.FILES['upload']
+     except:
+         pass
+     
+    #  p = Product(name=name,price=price,description=desc,image=image)
+    
+     p.save()
+     
+     
+     
+     return redirect('/myapp/products')
+     
+         
+    return render(request,'myapp/update_product.html',context = context)
+
+
+
+
+
+
+def delete_product(request,id):
+    p = Product.objects.get(id=id)
+    context = {'p':p}
+   
+   
+    if request.method == 'POST':
+        p.delete()
+        return redirect('/myapp/products')
+     
+         
+    return render(request,'myapp/delete_product.html',context = context)

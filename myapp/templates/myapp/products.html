@@ -1,63 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "myapp/base.html" %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+{% block content %}
 
-  <style>
-    .card {
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      max-width: 300px;
-      margin: auto;
-      text-align: center;
-      font-family: arial;
-    }
+  <div class="container align-center justify-center mx-auto px-6 grid grid-cols-2 grid-flow-row gap-5  z=30 place-content-center">
 
-    .price {
-      color: black;
-      font-size: 22px;
-    }
 
-    .card button {
-      border: none;
-      outline: 0;
-      padding: 12px;
-      color: white;
-      background-color: white;
-      text-align: center;
-      cursor: pointer;
-      width: 100%;
-      font-size: 18px;
-    }
 
-    .card button:hover {
-      opacity: 0.7;
-    }
-  </style>
-</head>
-
-<body>
-
-  {% for p in products %}
-  <ol>
-    <h2 style="text-align:center">Product Card</h2>
-    <a href="{% url 'product_details' p.id %}">
-      <div class="card">
-        <img src="{{p.image.url}}" alt="Image not found" style="width:200px">
-        <h1>{{p.name}}</h1>
-        <p class="price">₹ {{p.price}}</p>
-        <p>{{p.description}}<br></p>
-        <br>
-        <br>
+    {% for p in products %}
+    <div class="card w-96 glass ">
+      <figure><img class="object-cover h-60 w-90" src="{{p.image.url}}" alt="Something went Wrong" /></figure>
+      <div class="card-body">
+        <h2 class="card-title">{{p.name}}</h2>
+        <p>{{p.description}}</p>
+        <div class="card-actions justify-end">
+          <a href="{% url 'product_details' p.id %}">
+          <button class="btn btn-primary">₹ {{p.price}}</button>
+        </a>
+        </div>
       </div>
-    </a>
-  </ol>
+    </div>
 
 
-  {% endfor %}
-</body>
 
-</html>
+    <!-- <div class="box-content h-65 w-32 p-4 border-4 rounded-xl">
+      <h2 style="text-align:center">Product Card</h2>
+      <a href="{% url 'product_details' p.id %}">
+        <div class="card">
+          <img class="" src="{{p.image.url}}" alt="Image not found" style="width:200px">
+          <h1 class="text-sky-500">{{p.name}}</h1>
+          <p class="price">₹ {{p.price}}</p>
+          <p>{{p.description}}<br></p>
+          <br> 
+          <br>
+        </div> -->
+      <!-- </a> -->
+    <!-- </div> -->
+
+
+    {% endfor %}
+  </div>
+ 
+  {% endblock %}
