@@ -4,8 +4,10 @@ from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, TemplateView,DetailView,CreateView,DeleteView,UpdateView
 from myapp.models import Product
 from django.db.models import Q
+from django.urls import reverse_lazy
 # Create your views here.-
 
 
@@ -30,7 +32,10 @@ def index(request):
 def new_one(request):
     return render(request, 'listing/new_one.html')
 
-
+class ProductListView(ListView):
+    model = Product
+    template_name = 'myapp/products.html'
+    context_object_name = 'products'
 
 @login_required
 def products(request):
@@ -45,6 +50,13 @@ def product_details(request,id):
     p = Product.objects.get(id=id)
     context = {'p':p}
     return render(request, 'myapp/product_details.html',context=context)
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'myapp/product_details.html'
+    context_object_name = 'p'
+
 
 @login_required
 def add_product(request):
@@ -97,6 +109,14 @@ def update_product(request,id):
 
 
 
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = ['name','price','description','image','seller_name']
+    template_name = 'myapp/update_product.html'
+    success_url = reverse_lazy('myapp:products')
+
+
+
 
 
 
@@ -111,3 +131,9 @@ def delete_product(request,id):
      
          
     return render(request,'myapp/delete_product.html',context = context)
+
+
+class ProductDelete(DeleteView):
+    model = Product
+    
+    success_url = reverse_lazy('myapp:products')
