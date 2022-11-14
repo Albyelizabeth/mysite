@@ -52,7 +52,11 @@
                             </a>
                         </li>
                         <li><a>Settings</a></li>
-                        <li><a>Logout</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'users:logout' %}">Logout</a></li>
+                        {% else %}
+                        <li><a href="{% url 'users:login' %}">Login</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

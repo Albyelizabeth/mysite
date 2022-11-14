@@ -3,6 +3,7 @@ from multiprocessing import context
 # from unicodedata import name
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 from myapp.models import Product
 from django.db.models import Q
 # Create your views here.-
@@ -29,6 +30,9 @@ def index(request):
 def new_one(request):
     return render(request, 'listing/new_one.html')
 
+
+
+@login_required
 def products(request):
     p = Product.objects.all()
     
@@ -42,7 +46,7 @@ def product_details(request,id):
     context = {'p':p}
     return render(request, 'myapp/product_details.html',context=context)
 
-
+@login_required
 def add_product(request):
     if request.method == 'POST':
      name=request.POST.get('name')
@@ -53,6 +57,7 @@ def add_product(request):
      
      
      p = Product(name=name,price=price,description=desc,image=image)
+     p.seller_name = request.user
      p.save()
      
      

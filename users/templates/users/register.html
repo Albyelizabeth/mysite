@@ -1,0 +1,47 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+
+<h1 class="text-2xl font- bold m-10"> User Registration</h1>
+<form action="" method="post" class="card-body w=2/5 shadow-xl m-10 p-10">
+{% csrf_token %}
+
+<div class="mb-5">
+    <label class="block text-grey-700 text-sm font-bold mb-2" for="">Username</label>
+    <div class="appearence-none shadow border rounded-lg text-grey-800">
+        {{form.username}}
+    </div>
+</div>
+
+
+<div class="mb-5">
+        <label class="block text-grey-700 text-sm font-bold mb-2" for="">E mail</label>
+        <div class="appearence-none shadow border rounded-lg text-grey-800">
+            {{form.email}}
+        </div>
+</div>
+
+
+<div class="mb-5">
+        <label class="block text-grey-700 text-sm font-bold mb-2" for="">Password</label>
+        <div class="appearence-none shadow border rounded-lg text-grey-800">
+            {{form.password1}}
+        </div>
+</div>
+
+
+<div class="mb-5">
+        <label class="block text-grey-700 text-sm font-bold mb-2" for="">Confirm Password</label>
+        <div class="appearence-none shadow border rounded-lg text-grey-800">
+            {{form.password2}}
+        </div>
+</div>
+
+<div class="mb-5">
+
+
+    <button class="btn btn-outline btn-secondary">Submit</button>
+</div>
+
+
+{% endblock %}

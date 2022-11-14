@@ -13,7 +13,7 @@
         <h2 class="card-title">{{p.name}}</h2>
         <p>{{p.description}}</p>
         <div class="card-actions justify-end">
-          <a href="{% url 'product_details' p.id %}">
+          <a href="{% url 'myapp:product_details' p.id %}">
           <button class="btn btn-primary">₹ {{p.price}}</button>
         </a>
         </div>
@@ -22,7 +22,7 @@
 
 
 
-    <!-- <div class="box-content h-65 w-32 p-4 border-4 rounded-xl">
+   {% comment %} <div class="box-content h-65 w-32 p-4 border-4 rounded-xl"> -->
       <h2 style="text-align:center">Product Card</h2>
       <a href="{% url 'product_details' p.id %}">
         <div class="card">
@@ -32,9 +32,9 @@
           <p>{{p.description}}<br></p>
           <br> 
           <br>
-        </div> -->
-      <!-- </a> -->
-    <!-- </div> -->
+        </div>
+      </a>
+    </div>  {% endcomment %}
 
 
     {% endfor %}

@@ -1,0 +1,21 @@
+{% extends 'myapp/base.html' %}
+{% block content  %}
+
+<div class="text-xl text-center"><b>Seller Information </div>
+
+<div class="flex p-10 w-full h-200 bg-purple-50">
+  <img class="w-1/3 rounded-xl" src="{{seller.profile.image.url}}" alt="unable to load image">
+  <div class="w-2/3 text-xl ml-10 font-semibold">
+    <div class="mt-10 text-sky-700">ID : {{seller.id}}</div>
+    <div class="mt-10 text-sky-700">Name : {{seller.username}}</div>
+    <div class="mt-10 text-sky-700">Seller Contact : {{seller.profile.contact_number}}</div>
+    <img class="rounded-lg" style="width: 70px" src="{{profile.image.url}}" alt="fhfhhf">
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock  %}
