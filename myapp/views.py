@@ -1,12 +1,12 @@
-# from email.mime import image
-from multiprocessing import context
-# from unicodedata import name
-from django.http import HttpResponse
+
+
+
+from itertools import product
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, TemplateView,DetailView,CreateView,DeleteView,UpdateView
-from myapp.models import Product
-from django.db.models import Q
+from myapp.admin import ProductAdmin
+from myapp.models import Product,Cart
 from django.urls import reverse_lazy
 # Create your views here.-
 
@@ -113,6 +113,7 @@ class ProductUpdateView(UpdateView):
     model = Product
     fields = ['name','price','description','image','seller_name']
     template_name = 'myapp/update_product.html'
+    context_object_name = 'p'
     success_url = reverse_lazy('myapp:products')
 
 
@@ -135,5 +136,25 @@ def delete_product(request,id):
 
 class ProductDelete(DeleteView):
     model = Product
-    
+    template_name = 'myapp/delete_product.html'
+    context_object_name = 'p'
     success_url = reverse_lazy('myapp:products')
+    
+    
+    
+    
+
+
+
+def add_to_cart(request):
+    p = Product.objects.get(id=id)
+    user=request.user
+    product = Product.objects.get(id=id)
+    Cart(user=user,product=product).save()
+    return redirect("myapp/cart")
+    
+
+def show_cart(request):
+    user = request.user
+    cart = Cart.objects.filter(user=user)
+    return render(request, 'myapp/addtocart.html',locals())

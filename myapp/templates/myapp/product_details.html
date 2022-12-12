@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
 <!--<div class="card w-50 p-30 center">
   <img class="w-2/5" src="{{p.image.url}}" alt="Denim Jeans" style="width:100%">
   <h1>{{p.name}}</h1>
@@ -17,12 +18,16 @@
     <div class="mt-10 text-black-400">Name:{{p.name}}</div><br>
     <div class="mt-10 text-black-400">Description:{{p.description}}</div><br>
     <div class="mt-10 text-black-700">Price:{{p.price}}</div><br>
-    <div class="mt-10 text-black-700">Sold By:{{p.seller_name}}</div>
-    <a href="{% url 'users:sellerprofile' p.seller_name.id %}"><br>
-      <div class="text-sm text-stone-500">Seller Details</div>
+   
+      <a href="{% url 'users:sellerprofile' p.seller_name.id %}">
+      <div class="text-sm"><b>Seller Details</b></div>
+      
     </a>
-
-  </div>
+    <form action="/add-to-cart" class="d-inline">
+      <input type="hidden" name="product_id" value="{{p.id}}"/>
+      <button type="submit" class="btn btn-primary shadow px-5 py-2">Add To Cart</button>
+    </form>
+   
 </div>
 
 {% endblock %}
